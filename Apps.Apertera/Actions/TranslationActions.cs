@@ -49,7 +49,7 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
     {
         if (string.IsNullOrWhiteSpace(input.TargetLanguage))
             throw new PluginMisconfigurationException("The target language cannot be empty. Please fill in the 'Target language' field.");
-
+        
         if (string.IsNullOrWhiteSpace(input.SourceLanguage))
             throw new PluginMisconfigurationException("The source language cannot be empty. Alexa Translations requires an explicit source language.");
 
@@ -157,7 +157,7 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
         {
             FileContent = memoryStream.ToArray(),
             FileName = input.File.Name,
-            SourceLanguage = input.SourceLanguage!,
+            SourceLanguage = input.SourceLanguage,
             TargetLanguage = input.TargetLanguage,
             ProjectId = input.ProjectId,
             FormatFlags = FileFormatFlagsFactory.GetFlags(input.File.Name),

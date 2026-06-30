@@ -11,7 +11,7 @@ public class TextTranslationRequest : ITranslateTextInput
     public string Text { get; set; } = string.Empty;
 
     [Display("Source language", Description = "The source language for translation"), StaticDataSource(typeof(LanguageDataSourceHandler))]
-    public string? SourceLanguage { get; set; }
+    public string SourceLanguage { get; set; } = string.Empty;
 
     [Display("Target language", Description = "The target language for translation"), StaticDataSource(typeof(LanguageDataSourceHandler))]
     public string TargetLanguage { get; set; } = string.Empty;
