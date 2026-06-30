@@ -6,11 +6,11 @@ Blackbird is the new automation backbone for the language technology industry. B
 
 <!-- begin docs -->
 
-Apertera (powered by Alexa Translations AI) is a neural machine translation service built for regulated industries. This app integrates Apertera's translation capabilities into Blackbird workflows, enabling both text and file translation with full Blackbird interoperability support.
+Apertera AI is a neural machine translation service built for regulated industries. This app integrates Apertera's translation capabilities into Blackbird workflows, enabling both text and file translation with full Blackbird interoperability support.
 
 ## Before setting up
 
-Sign in to your [Alexa Translations](https://ai.alexatranslations.com) account and obtain your API key and username from your account settings or contact your Apertera administrator.
+Sign in to your [Apertera](https://app.apertera.com/) account and obtain your API key and username from your account settings or contact your Apertera administrator.
 
 ## Connecting
 
