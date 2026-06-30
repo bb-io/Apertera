@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Product>Apertera [Beta]</Product>
-        <Description>Apertera (powered by Alexa Translations AI) is a neural machine translation service built for regulated industries. This app integrates Apertera's translation capabilities into Blackbird workflows, enabling both text and file translation with full Blackbird interoperability support.</Description>
-        <Version>1.0.0</Version>
+        <Product>Apertera AI [Beta]</Product>
+        <Description>Apertera AI is a neural machine translation service built for regulated industries. This app integrates Apertera's translation capabilities into Blackbird workflows, enabling both text and file translation with full Blackbird interoperability support.</Description>
+        <Version>1.0.1</Version>
         <AssemblyName>Apps.Apertera</AssemblyName>
     </PropertyGroup>
 
