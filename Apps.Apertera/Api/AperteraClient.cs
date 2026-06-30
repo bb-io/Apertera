@@ -9,17 +9,16 @@ using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Utils.Extensions.Sdk;
 using Blackbird.Applications.Sdk.Utils.RestSharp;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace Apps.Apertera.Api;
 
-public class Client : BlackBirdRestClient
+public class AperteraClient : BlackBirdRestClient
 {
     private readonly string _apiKey;
     private readonly string _username;
 
-    public Client(IEnumerable<AuthenticationCredentialsProvider> creds) : base(new RestClientOptions
+    public AperteraClient(IEnumerable<AuthenticationCredentialsProvider> creds) : base(new RestClientOptions
     {
         BaseUrl = new Uri("https://ai.alexatranslations.com"),
         Timeout = TimeSpan.FromSeconds(300),
@@ -71,11 +70,8 @@ public class Client : BlackBirdRestClient
 
         try
         {
-            var token = JToken.Parse(response.Content);
-            return token["message"]?.ToString()
-                ?? token["error"]?.ToString()
-                ?? token["detail"]?.ToString()
-                ?? response.Content;
+            var error = JsonConvert.DeserializeObject<AperteraErrorDto>(response.Content);
+            return error?.FirstNonEmpty() ?? response.Content;
         }
         catch (JsonReaderException)
         {

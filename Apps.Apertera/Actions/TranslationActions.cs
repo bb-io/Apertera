@@ -15,6 +15,7 @@ using Blackbird.Filters.Extensions;
 using Blackbird.Filters.Transformations;
 using System.Text;
 using Apps.Apertera.Models.Entities;
+using Blackbird.Applications.Sdk.Utils.Extensions.Files;
 
 namespace Apps.Apertera.Actions;
 
@@ -25,7 +26,7 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
     private const int MaxSpecificCoderCount = 4;
 
     [BlueprintActionDefinition(BlueprintAction.TranslateText)]
-    [Action("Translate text", Description = "Translate text using Apertera.")]
+    [Action("Translate text", Description = "Translate plain text.")]
     public async Task<TextTranslationResponse> TranslateText([ActionParameter] TextTranslationRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Text))
@@ -44,7 +45,7 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
     }
 
     [BlueprintActionDefinition(BlueprintAction.TranslateFile)]
-    [Action("Translate", Description = "Translate a file using Apertera. Supports XLIFF interoperability and native file translation.")]
+    [Action("Translate", Description = "Translate a file. Supports XLIFF interoperability and native file translation.")]
     public async Task<TranslateFileResponse> TranslateContent([ActionParameter] ContentTranslationRequest input)
     {
         if (string.IsNullOrWhiteSpace(input.TargetLanguage))
@@ -157,12 +158,11 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
     private async Task<TranslateFileResponse> TranslateDocumentNatively(ContentTranslationRequest input)
     {
         var stream = await fileManagementClient.DownloadAsync(input.File);
-        var memoryStream = new MemoryStream();
-        await stream.CopyToAsync(memoryStream);
+        var bytes = await stream.GetByteData();
 
         var docReq = new DocumentTranslationDto
         {
-            FileContent = memoryStream.ToArray(),
+            FileContent = bytes,
             FileName = input.File.Name,
             SourceLanguage = input.SourceLanguage,
             TargetLanguage = input.TargetLanguage,

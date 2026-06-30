@@ -17,7 +17,7 @@ public class ConnectionValidator(InvocationContext invocationContext) : BaseInvo
         CancellationToken cancellationToken)
     {
         var creds = authenticationCredentialsProviders.ToArray();
-        var client = new Client(creds);
+        var client = new AperteraClient(creds);
         var request = new RestRequest("/v2/translate/", Method.Post)
             .AddParameter("credential", creds.Get(CredsNames.ApiKey).Value)
             .AddParameter("from", "eng")
@@ -29,7 +29,7 @@ public class ConnectionValidator(InvocationContext invocationContext) : BaseInvo
                                 or HttpStatusCode.Forbidden
                                 or HttpStatusCode.InternalServerError)
         {
-            var msg = Client.ExtractErrorMessage(response);
+            var msg = AperteraClient.ExtractErrorMessage(response);
             return new() { IsValid = false, Message = string.IsNullOrWhiteSpace(msg) ? "Invalid API key or username." : msg };
         }
 
@@ -38,7 +38,7 @@ public class ConnectionValidator(InvocationContext invocationContext) : BaseInvo
             || body.Contains("invalid credential", StringComparison.OrdinalIgnoreCase)
             || body.Contains("authentication failed", StringComparison.OrdinalIgnoreCase))
         {
-            return new() { IsValid = false, Message = Client.ExtractErrorMessage(response) };
+            return new() { IsValid = false, Message = AperteraClient.ExtractErrorMessage(response) };
         }
 
         return new() { IsValid = true, Message = "Success" };
