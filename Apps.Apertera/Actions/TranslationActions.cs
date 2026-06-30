@@ -25,7 +25,7 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
     private const int MaxSpecificCoderCount = 4;
 
     [BlueprintActionDefinition(BlueprintAction.TranslateText)]
-    [Action("Translate text", Description = "Translate text using Alexa Translations AI.")]
+    [Action("Translate text", Description = "Translate text using Apertera.")]
     public async Task<TextTranslationResponse> TranslateText([ActionParameter] TextTranslationRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Text))
@@ -44,14 +44,14 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
     }
 
     [BlueprintActionDefinition(BlueprintAction.TranslateFile)]
-    [Action("Translate", Description = "Translate a file using Alexa Translations AI. Supports XLIFF interoperability and native file translation.")]
+    [Action("Translate", Description = "Translate a file using Apertera. Supports XLIFF interoperability and native file translation.")]
     public async Task<TranslateFileResponse> TranslateContent([ActionParameter] ContentTranslationRequest input)
     {
         if (string.IsNullOrWhiteSpace(input.TargetLanguage))
             throw new PluginMisconfigurationException("The target language cannot be empty. Please fill in the 'Target language' field.");
         
         if (string.IsNullOrWhiteSpace(input.SourceLanguage))
-            throw new PluginMisconfigurationException("The source language cannot be empty. Alexa Translations requires an explicit source language.");
+            throw new PluginMisconfigurationException("The source language cannot be empty. Apertera requires an explicit source language.");
 
         var isPdf = Path.GetExtension(input.File.Name).Equals(".pdf", StringComparison.OrdinalIgnoreCase);
         if (input.FileTranslationStrategy == "apertera" || isPdf)
@@ -100,12 +100,19 @@ public class TranslationActions(InvocationContext invocationContext, IFileManage
             var sourceChars = 0;
             foreach (var (segment, translatedText) in results)
             {
-                segment.SetTarget(translatedText);
+                try
+                {
+                    segment.SetTarget(translatedText);
+                }
+                catch (System.Xml.XmlException e)
+                {
+                    throw new PluginApplicationException($"The translated segment contains malformed XML: {e.Message}.");
+                }
                 segment.State = SegmentState.Translated;
                 sourceChars += segment.GetSource()?.Length ?? 0;
             }
-            unit.Provenance.Translation.Tool = "Alexa Translations";
-            unit.AddUsage("Alexa Translations", sourceChars, UsageUnit.Characters);
+            unit.Provenance.Translation.Tool = "Apertera";
+            unit.AddUsage("Apertera", sourceChars, UsageUnit.Characters);
         }
 
         if (input.OutputFileHandling == "original")

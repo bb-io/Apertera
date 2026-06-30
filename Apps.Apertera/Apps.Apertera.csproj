@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Product>Apertera [Beta]</Product>
-        <Description>AI translation tool. AI was trained by Professional Translators and domain specialists with decades of experience in legal, financial, and regulatory content. It understands your terminology, your standards, and what precision means for your organization.</Description>
+        <Description>Apertera (powered by Alexa Translations AI) is a neural machine translation service built for regulated industries. This app integrates Apertera's translation capabilities into Blackbird workflows, enabling both text and file translation with full Blackbird interoperability support.</Description>
         <Version>1.0.0</Version>
         <AssemblyName>Apps.Apertera</AssemblyName>
     </PropertyGroup>
