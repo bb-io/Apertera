@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <Product>Apertera AI [Beta]</Product>
         <Description>Apertera AI is a neural machine translation service built for regulated industries. This app integrates Apertera's translation capabilities into Blackbird workflows, enabling both text and file translation with full Blackbird interoperability support.</Description>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <AssemblyName>Apps.Apertera</AssemblyName>
     </PropertyGroup>
 

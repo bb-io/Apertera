@@ -41,7 +41,7 @@ Translates a plain-text string using Alexa Translations AI.
 
 Translates a file using Alexa Translations AI. Supports two strategies selectable via **File translation strategy**:
 
-**Blackbird interoperability mode** (default) — Blackbird parses the file into an internal XLIFF representation, extracts translatable segments, sends them to Alexa Translations, and returns the result. Supported input formats: HTML, DOCX, PPTX, XLIFF, XML, TXT. The output format is controlled by **Output file handling**.
+**Blackbird interoperability mode** (default) — Blackbird parses the file into an internal XLIFF representation, extracts translatable segments, sends them to Alexa Translations, and returns the result. The output format is controlled by **Output file handling**.
 
 **Apertera native mode** — The file is sent directly to Alexa Translations' document translation endpoint. Supports HTML, DOCX, PPTX, TXT, and PDF.
 
